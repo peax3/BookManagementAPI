@@ -10,5 +10,11 @@ namespace BookManagementAPI.Contracts
         Task<IEnumerable<Book>> GetAllBooks(bool trackChanges);
 
         Task<Book> GetBook(Guid id, bool trackChanges);
+
+        void CreateBook(Book booToAdd);
+
+        void DeleteBook(Book bookToDelete);
+
+        void UpdateBook(Book bookToUpdate);
     }
 }

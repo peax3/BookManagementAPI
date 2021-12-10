@@ -23,5 +23,20 @@ namespace BookManagementAPI.Repository
         {
             return await FindByCondition(b => b.BookId == id, trcakChanges).SingleOrDefaultAsync();
         }
+
+        public void CreateBook(Book bookToAdd)
+        {
+            Create(bookToAdd);
+        }
+
+        public void DeleteBook(Book bookToDelete)
+        {
+            Delete(bookToDelete);
+        }
+
+        public void UpdateBook(Book bookToUpdate)
+        {
+            Update(bookToUpdate);
+        }
     }
 }

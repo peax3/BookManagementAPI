@@ -40,9 +40,10 @@ namespace BookManagementAPI.Repository
             }
         }
 
-        public async Task SaveChangesToDbAsync()
+        public async Task<bool> SaveChangesToDbAsync()
         {
-            await _RepositoryDbContext.SaveChangesAsync();
+            var result = await _RepositoryDbContext.SaveChangesAsync();
+            return result > 0;
         }
     }
 }

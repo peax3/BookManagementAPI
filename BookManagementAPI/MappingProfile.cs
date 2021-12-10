@@ -9,7 +9,9 @@ namespace BookManagementAPI
         public MappingProfile()
         {
             CreateMap<Book, BookResponseDto>();
+            CreateMap<BookInputDto, Book>();
             CreateMap<Author, AuthorResponseDto>();
+            CreateMap<AuthorInputDto, Author>();
         }
     }
 }

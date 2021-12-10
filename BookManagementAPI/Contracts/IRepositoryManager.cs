@@ -7,6 +7,6 @@ namespace BookManagementAPI.Contracts
         IBookRepository Book { get; }
         IAuthorRepository Author { get; }
 
-        Task SaveChangesToDbAsync();
+        Task<bool> SaveChangesToDbAsync();
     }
 }

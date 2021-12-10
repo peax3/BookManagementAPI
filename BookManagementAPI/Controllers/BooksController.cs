@@ -41,5 +41,47 @@ namespace BookManagementAPI.Controllers
 
             return Ok(bookResponseDto);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateBook([FromBody] BookInputDto booksInput)
+        {
+            if (booksInput == null) return BadRequest();
+
+            var bookToUpdate = _Mapper.Map<Book>(booksInput);
+            _RepositoryManager.Book.CreateBook(bookToUpdate);
+
+            var isSuccessful = await _RepositoryManager.SaveChangesToDbAsync();
+  
+            if (!isSuccessful) return BadRequest("failed to save contact");
+            return new StatusCodeResult(201);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateBook(Guid id, [FromBody]BookInputDto bookInputDto)
+        {
+            var bookToUpdate = await _RepositoryManager.Book.GetBook(id, true);
+            if (bookToUpdate == null) return NotFound();
+
+            _Mapper.Map(bookInputDto, bookToUpdate);
+
+            _RepositoryManager.Book.UpdateBook(bookToUpdate);
+            var isSuccessful = await _RepositoryManager.SaveChangesToDbAsync();
+
+            if (!isSuccessful) return BadRequest("failed to Update contact");
+            return new StatusCodeResult(201);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteBookById(Guid id)
+        {
+            var bookToDelete = await _RepositoryManager.Book.GetBook(id, true);
+            if (bookToDelete == null) return NotFound();
+
+            _RepositoryManager.Book.DeleteBook(bookToDelete);
+
+            var isSuccessful = await _RepositoryManager.SaveChangesToDbAsync();
+            if (!isSuccessful) return BadRequest("failed to delete contact");
+            return new StatusCodeResult(201);
+        }
     }
 }
