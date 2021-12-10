@@ -3,6 +3,7 @@ using BookManagementAPI.Contracts;
 using BookManagementAPI.Entities.Dtos;
 using BookManagementAPI.Entities.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -27,6 +28,18 @@ namespace BookManagementAPI.Controllers
             var authors = await _RepositoryManager.Author.GetAllAuthors(false);
             var authorsResponseDto = _Mapper.Map<IEnumerable<AuthorResponseDto>>(authors);
             return Ok(authorsResponseDto);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<AuthorResponseDto>> GetAuthorById(Guid id)
+        {
+            var author = await _RepositoryManager.Author.GetAuthor(id, false);
+
+            if (author == null) return NotFound();
+
+            var authorResponseDto = _Mapper.Map<AuthorResponseDto>(author);
+
+            return Ok(authorResponseDto);
         }
     }
 }

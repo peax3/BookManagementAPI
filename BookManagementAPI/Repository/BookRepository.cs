@@ -1,6 +1,7 @@
 ﻿using BookManagementAPI.Contracts;
 using BookManagementAPI.Entities.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -18,9 +19,9 @@ namespace BookManagementAPI.Repository
             return await FindAll(trackChanges).ToListAsync();
         }
 
-        public Task<Book> GetBook(int id)
+        public async Task<Book> GetBook(Guid id, bool trcakChanges)
         {
-            throw new System.NotImplementedException();
+            return await FindByCondition(b => b.BookId == id, trcakChanges).SingleOrDefaultAsync();
         }
     }
 }

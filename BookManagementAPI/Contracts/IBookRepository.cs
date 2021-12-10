@@ -1,4 +1,5 @@
 ﻿using BookManagementAPI.Entities.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,6 +9,6 @@ namespace BookManagementAPI.Contracts
     {
         Task<IEnumerable<Book>> GetAllBooks(bool trackChanges);
 
-        Task<Book> GetBook(int id);
+        Task<Book> GetBook(Guid id, bool trackChanges);
     }
 }

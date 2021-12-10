@@ -34,7 +34,7 @@ namespace BookManagementAPI.Repository
             return entities;
         }
 
-        public IQueryable<T> FIndByCondition(Expression<Func<T, bool>> expression, bool trackChanges)
+        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges)
         {
             var entities = !trackChanges ?
                             _RepositoryDbContext.Set<T>().Where(expression).AsNoTracking() :
