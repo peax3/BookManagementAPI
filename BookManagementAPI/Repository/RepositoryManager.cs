@@ -6,17 +6,39 @@ namespace BookManagementAPI.Repository
     public class RepositoryManager : IRepositoryManager
     {
         private readonly RepositoryDbContext _RepositoryDbContext;
-        private readonly IBookRepository _BookRepository;
-        private readonly IAuthorRepository _AuthorRepository;
+        private IBookRepository _BookRepository;
+        private IAuthorRepository _AuthorRepository;
 
         public RepositoryManager(RepositoryDbContext repositoryDbContext)
         {
             _RepositoryDbContext = repositoryDbContext;
         }
 
-        public IBookRepository Book => _BookRepository == null ? new BookRepository(_RepositoryDbContext) : _BookRepository;
+        public IBookRepository Book
+        {
+            get
+            {
+                if (_BookRepository == null)
+                {
+                    _BookRepository = new BookRepository(_RepositoryDbContext);
+                }
 
-        public IAuthorRepository Author => _AuthorRepository == null ? new AuthorRepository(_RepositoryDbContext) : _AuthorRepository;
+                return _BookRepository;
+            }
+        }
+
+        public IAuthorRepository Author
+        {
+            get
+            {
+                if (_AuthorRepository == null)
+                {
+                    _AuthorRepository = new AuthorRepository(_RepositoryDbContext);
+                }
+
+                return _AuthorRepository;
+            }
+        }
 
         public async Task SaveChangesToDbAsync()
         {

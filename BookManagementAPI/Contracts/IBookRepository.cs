@@ -7,5 +7,7 @@ namespace BookManagementAPI.Contracts
     public interface IBookRepository
     {
         Task<IEnumerable<Book>> GetAllBooks(bool trackChanges);
+
+        Task<Book> GetBook(int id);
     }
 }
