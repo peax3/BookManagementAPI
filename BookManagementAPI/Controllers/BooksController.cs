@@ -47,12 +47,12 @@ namespace BookManagementAPI.Controllers
         {
             if (booksInput == null) return BadRequest();
 
-            var bookToUpdate = _Mapper.Map<Book>(booksInput);
-            _RepositoryManager.Book.CreateBook(bookToUpdate);
+            var bookToAdd = _Mapper.Map<Book>(booksInput);
+            _RepositoryManager.Book.CreateBook(bookToAdd);
 
             var isSuccessful = await _RepositoryManager.SaveChangesToDbAsync();
   
-            if (!isSuccessful) return BadRequest("failed to save contact");
+            if (!isSuccessful) return BadRequest("failed to save book");
             return new StatusCodeResult(201);
         }
 
@@ -67,7 +67,7 @@ namespace BookManagementAPI.Controllers
             _RepositoryManager.Book.UpdateBook(bookToUpdate);
             var isSuccessful = await _RepositoryManager.SaveChangesToDbAsync();
 
-            if (!isSuccessful) return BadRequest("failed to Update contact");
+            if (!isSuccessful) return BadRequest("failed to Update book");
             return new StatusCodeResult(201);
         }
 
@@ -80,7 +80,7 @@ namespace BookManagementAPI.Controllers
             _RepositoryManager.Book.DeleteBook(bookToDelete);
 
             var isSuccessful = await _RepositoryManager.SaveChangesToDbAsync();
-            if (!isSuccessful) return BadRequest("failed to delete contact");
+            if (!isSuccessful) return BadRequest("failed to delete book");
             return new StatusCodeResult(201);
         }
     }

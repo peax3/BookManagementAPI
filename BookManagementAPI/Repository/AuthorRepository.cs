@@ -14,6 +14,16 @@ namespace BookManagementAPI.Repository
         {
         }
 
+        public void CreateAuthor(Author authorToAdd)
+        {
+            Create(authorToAdd);
+        }
+
+        public void DeleteAuthor(Author authorToDelete)
+        {
+            Delete(authorToDelete);
+        }
+
         public async Task<IEnumerable<Author>> GetAllAuthors(bool trackChanges)
         {
             return await FindAll(trackChanges).ToListAsync();
@@ -22,6 +32,11 @@ namespace BookManagementAPI.Repository
         public async Task<Author> GetAuthor(Guid id, bool trackChanges)
         {
             return await FindByCondition(a => a.AuthorId == id, trackChanges).SingleOrDefaultAsync();
+        }
+
+        public void UpdateAuthor(Author authorToUpdate)
+        {
+            Update(authorToUpdate);
         }
     }
 }

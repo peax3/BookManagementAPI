@@ -41,5 +41,47 @@ namespace BookManagementAPI.Controllers
 
             return Ok(authorResponseDto);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAuthor([FromBody]AuthorInputDto authorInput)
+        {
+            if (authorInput == null) return BadRequest();
+
+            var authorToAdd = _Mapper.Map<Author>(authorInput);
+            _RepositoryManager.Author.CreateAuthor(authorToAdd);
+
+            var isSuccessful = await _RepositoryManager.SaveChangesToDbAsync();
+
+            if (!isSuccessful) return BadRequest("failed to save author");
+            return new StatusCodeResult(201);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAuthor(Guid id, [FromBody]AuthorInputDto authorInput)
+        {
+            var authorToUpdate = await _RepositoryManager.Author.GetAuthor(id, true);
+            if (authorToUpdate == null) return NotFound();
+
+            _Mapper.Map(authorInput, authorToUpdate);
+
+            _RepositoryManager.Author.UpdateAuthor(authorToUpdate);
+            var isSuccessful = await _RepositoryManager.SaveChangesToDbAsync();
+
+            if (!isSuccessful) return BadRequest("failed to Update author");
+            return new StatusCodeResult(201);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAuthor(Guid id)
+        {
+            var authorToDelete = await _RepositoryManager.Author.GetAuthor(id, true);
+            if (authorToDelete == null) return NotFound();
+
+            _RepositoryManager.Author.DeleteAuthor(authorToDelete);
+
+            var isSuccessful = await _RepositoryManager.SaveChangesToDbAsync();
+            if (!isSuccessful) return BadRequest("failed to delete author");
+            return new StatusCodeResult(201);
+        }
     }
 }

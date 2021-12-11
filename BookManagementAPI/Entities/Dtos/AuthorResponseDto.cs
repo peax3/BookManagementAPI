@@ -6,5 +6,6 @@ namespace BookManagementAPI.Entities.Dtos
     {
         public Guid AuthorId { get; set; }
         public string AuthorName { get; set; }
+
     }
 }

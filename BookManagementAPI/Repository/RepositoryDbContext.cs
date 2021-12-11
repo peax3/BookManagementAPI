@@ -24,6 +24,11 @@ namespace BookManagementAPI.Repository
                 fromDb => DateTime.SpecifyKind(fromDb, DateTimeKind.Utc));
 
             modelBuilder.Entity<Book>().Property(book => book.PublishedOn).HasConversion(utcConverter);
+
+            modelBuilder.Entity<Book>()
+                        .HasOne(b => b.Author)
+                        .WithMany(a => a.Books)
+                        .HasForeignKey(b => b.AuthorId);
         }
     }
 }

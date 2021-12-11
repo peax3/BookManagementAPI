@@ -9,5 +9,9 @@ namespace BookManagementAPI.Contracts
     {
         Task<IEnumerable<Author>> GetAllAuthors(bool trackChanges);
         Task<Author> GetAuthor(Guid id, bool trackChanges);
+
+        void CreateAuthor(Author authorToAdd);
+        void UpdateAuthor(Author authorToUpdate);
+        void DeleteAuthor(Author authorToDelete);
     }
 }

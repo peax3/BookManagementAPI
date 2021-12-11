@@ -8,6 +8,8 @@ namespace BookManagementAPI.Entities.Dtos
     {
         [Required]
         public string AuthorName { get; set; }
+
+        public IEnumerable<BookInputDto> Books { get; set; }
  
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookManagementAPI.Entities.Models
 {
@@ -17,6 +18,8 @@ namespace BookManagementAPI.Entities.Models
         public string Publisher { get; set; }
 
         //relationship
+        public Guid AuthorId { get; set; }
         public Author Author { get; set; }
+
     }
 }
