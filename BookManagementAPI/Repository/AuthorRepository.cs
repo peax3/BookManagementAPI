@@ -3,6 +3,7 @@ using BookManagementAPI.Entities.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BookManagementAPI.Repository
@@ -32,6 +33,11 @@ namespace BookManagementAPI.Repository
         public async Task<Author> GetAuthor(Guid id, bool trackChanges)
         {
             return await FindByCondition(a => a.AuthorId == id, trackChanges).SingleOrDefaultAsync();
+        }
+
+        public async Task<IList<Author>> GetAuthorsByIds(IEnumerable<Guid> ids, bool trackChanges)
+        {
+            return await FindByCondition(a => ids.Contains(a.AuthorId), trackChanges).ToListAsync();
         }
 
         public void UpdateAuthor(Author authorToUpdate)

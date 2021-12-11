@@ -13,5 +13,6 @@ namespace BookManagementAPI.Contracts
         void CreateAuthor(Author authorToAdd);
         void UpdateAuthor(Author authorToUpdate);
         void DeleteAuthor(Author authorToDelete);
+        Task<IList<Author>> GetAuthorsByIds(IEnumerable<Guid> ids, bool trackChanges);
     }
 }

@@ -16,5 +16,7 @@ namespace BookManagementAPI.Contracts
         void DeleteBook(Book bookToDelete);
 
         void UpdateBook(Book bookToUpdate);
+
+        Task<IList<Book>> GetBooksByIds(IEnumerable<Guid> ids ,bool trackChanges);
     }
 }
